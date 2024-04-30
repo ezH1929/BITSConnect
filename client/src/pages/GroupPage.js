@@ -20,7 +20,7 @@ function GroupPage() {
   const fetchGroupDetails = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/groups/groups/${groupId}`,
+        `https://bitsconnect.onrender.com/api/groups/groups/${groupId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -48,7 +48,7 @@ function GroupPage() {
   const fetchGroupPosts = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/groups/groups/${groupId}/posts`,
+        `https://bitsconnect.onrender.com/api/groups/groups/${groupId}/posts`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -81,7 +81,7 @@ function GroupPage() {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:3001/api/groups/groups/${groupId}/posts`,
+        `https://bitsconnect.onrender.com/api/groups/groups/${groupId}/posts`,
         {
           method: "POST",
           headers: {
