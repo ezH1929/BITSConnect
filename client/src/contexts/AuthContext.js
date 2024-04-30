@@ -94,7 +94,7 @@ export const AuthProvider = ({ children }) => {
     isLoading,
     setIsLoggedIn,  
     setCurrentUser 
-  }), [currentUser, isLoggedIn, isLoading, login, logout, navigate]); // Include navigate in the dependency array
+  }), [currentUser, isLoggedIn, isLoading, login, logout]); // Include navigate in the dependency array
 
   return (
     <AuthContext.Provider value={value}>
