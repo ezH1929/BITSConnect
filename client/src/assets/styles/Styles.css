@@ -1,0 +1,59 @@
+.group-list-container {
+    max-width: 1200px; /* Adjust based on your preference */
+    margin: auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.group-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Creates three columns */
+    grid-gap: 20px; /* Space between cards */
+}
+
+.group-card {
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px; /* Adjust or remove as needed, considering grid-gap */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.group-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.group-card h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.group-card p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.group-card .members {
+    font-style: italic;
+    color: #888;
+}
+
+.group-card button {
+    background-color: #0056b3;
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.group-card button:hover {
+    background-color: #004494;
+}

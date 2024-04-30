@@ -1,0 +1,24 @@
+.create-group-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.create-group-btn {
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.create-group-btn:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+.error-message {
+    color: #ff0000; /* Red color for errors */
+    margin-top: 20px;
+}
