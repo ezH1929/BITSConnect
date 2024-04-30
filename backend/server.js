@@ -28,10 +28,7 @@ app.use(limiter);
 
 // MongoDB Connection
 console.log("URI from .env:", process.env.ATLAS_URI);
-mongoose.connect(process.env.ATLAS_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+mongoose.connect(process.env.ATLAS_URI);
 
 const connection = mongoose.connection;
 connection.once('open', () => {
