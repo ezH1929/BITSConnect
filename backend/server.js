@@ -12,7 +12,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
     cors: {
-        origin: "http://localhost:3000",  // Ensure this matches the front-end URL
+        origin: "https://bits-connect.vercel.app/",  // Ensure this matches the front-end URL
         methods: ["GET", "POST"]
     }
 });
@@ -21,7 +21,7 @@ const port = process.env.PORT || 3001;
 
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://bits-connect.vercel.app/',
   credentials: true
 }));
 app.use(helmet());
