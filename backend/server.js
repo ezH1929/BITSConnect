@@ -12,17 +12,16 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
     cors: {
-        origin: "https://master--courageous-dolphin-0a24da.netlify.app",  // Ensure this matches the front-end URL
+        origin: "*",  // Ensure this matches the front-end URL
         methods: ["GET", "POST"]
     }
 });
 
 const port = process.env.PORT || 3001;
 // Middleware
-app.use(cors({
-  origin: 'https://master--courageous-dolphin-0a24da.netlify.app',
-  credentials: true
-}));
+// Middleware
+app.use(cors());
+
 app.use(helmet());
 app.use(express.json());
 
