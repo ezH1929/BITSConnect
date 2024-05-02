@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
         return;
       }
       try {
-        const response = await fetch('https://bitsconnect.onrender.com/api/users/profile', {
+        const response = await fetch('http://localhost:3001/api/users/profile', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
   const login = useCallback(async (email, password) => {
     setIsLoading(true);
     try {
-      const response = await fetch('https://bitsconnect.onrender.com/api/auth/login', {
+      const response = await fetch('http://localhost:3001/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })

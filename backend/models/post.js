@@ -5,22 +5,29 @@ const mongoose = require('mongoose');
 const postSchema = new mongoose.Schema({
     text: {
         type: String,
-        required: true
+        required: true,
+        trim: true  // Ensures text has no leading or trailing whitespace
     },
     group: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Group',
-        required: true
+        required: true,
+        index: true  // Improves query performance for posts by group
     },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', // Assuming there's a User model
-        required: true
+        ref: 'User',
+        required: true,
+        index: true  // Improves query performance for posts by user
     },
     createdAt: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        index: true  // May improve sorting by creation date
     }
 });
+
+
+
 
 module.exports = mongoose.model('Post', postSchema);

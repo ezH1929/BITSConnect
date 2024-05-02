@@ -1,94 +1,102 @@
+/* Global page styles */
 .group-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-  }
-  
-  .group-info-container {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .group-name {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .group-description {
-    margin-top: 10px;
-    font-size: 18px;
-  }
-  
-  .chat-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 80%;
-    width: 80%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    overflow: hidden;
-  }
-  
-  .chat-messages {
-    overflow-y: auto;
-    padding: 10px;
-  }
-  
-  .message {
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .post-form {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-  }
-  
-  .post-form textarea {
-    flex: 1;
-    resize: none;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
-  
-  .post-form button {
-    margin-left: 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  .post-form button:hover {
-    background-color: #0056b3;
-  }
-  
-/* GroupPage.css */
+  width: 100%;
+  max-width: 800px; /* Adjusted width for a larger view */
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+}
+
+/* Styling the header and 'Go Back' button */
 .goBackButton {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background-color: transparent;
-    color: #007bff;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .goBackButton:hover {
-    background-color: #007bff;
-    color: #fff;
-  }
-  
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.group-info-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.group-name {
+  margin-top: 0;
+  color: #333;
+}
+
+.group-description {
+  color: #666;
+  font-size: 16px;
+}
+
+/* Chat container and messages */
+.chat-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.chat-messages {
+  height: 500px; /* Increased height for more chat visibility */
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.message {
+  background-color: #f7f7f7;
+  border-radius: 15px;
+  padding: 10px;
+  margin-bottom: 8px;
+  max-width: 70%;
+  word-wrap: break-word;
+}
+
+.sent {
+  background-color: #e9f5ff;
+  align-self: flex-end;
+  margin-left: auto; /* Align right */
+}
+
+.received {
+  background-color: #f7f7f7;
+  align-self: flex-start; /* Align left */
+}
+
+/* Message content and metadata */
+.message-content {
+  font-size: 14px;
+}
+
+.message-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #888;
+}
+
+/* Post form styling */
+.post-form {
+  display: flex;
+  border-top: 1px solid #eee;
+}
+
+.post-form input[type="text"], .post-form button {
+  border: none;
+  padding: 10px;
+  margin: 5px;
+}
+
+.post-form input[type="text"] {
+  flex-grow: 1;
+}
+
+.post-form button {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}

@@ -1,111 +1,95 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import '../assets/styles/GroupPage.css';
-import { Link } from "react-router-dom";
+import React, { useEffect, useState, useRef, useCallback } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import io from "socket.io-client";
+import "../assets/styles/GroupPage.css";
+import { useAuth } from '../contexts/AuthContext';
 
+const ENDPOINT = "http://localhost:3001";
 
 function GroupPage() {
   const { groupId } = useParams();
   const [group, setGroup] = useState(null);
   const [posts, setPosts] = useState([]);
-  const [error, setError] = useState("");
   const [postText, setPostText] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const messagesEndRef = useRef(null);
+  const socketRef = useRef();
+  const { currentUser } = useAuth(); // Properly using useAuth to get currentUser
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  useEffect(() => {
+    socketRef.current = io(ENDPOINT);
 
-  const fetchGroupDetails = async () => {
+    socketRef.current.emit("joinRoom", { groupId });
+
+    socketRef.current.on("newPost", (post) => {
+      setPosts((prevPosts) => [...prevPosts, post]);
+      scrollToBottom();
+    });
+
+    return () => {
+      socketRef.current.disconnect();
+    };
+  }, [groupId]);
+
+  const fetchGroupDetails = useCallback(async () => {
     try {
-      const response = await fetch(
-        `https://bitsconnect.onrender.com/api/groups/groups/${groupId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        setError(errorData.message);
-        if (response.status === 403) {
-          navigate("/home"); // Redirect if not a member
-        }
-        return;
-      }
-
+      const response = await fetch(`${ENDPOINT}/api/groups/groups/${groupId}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
       const data = await response.json();
+      if (!response.ok) throw new Error(data.message);
       setGroup(data);
     } catch (error) {
       setError("Failed to fetch group details.");
       navigate("/home");
     }
-  };
+  }, [groupId, navigate]);
 
-  const fetchGroupPosts = async () => {
+  const fetchGroupPosts = useCallback(async () => {
     try {
-      const response = await fetch(
-        `https://bitsconnect.onrender.com/api/groups/groups/${groupId}/posts`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
+        const response = await fetch(`${ENDPOINT}/api/groups/groups/${groupId}/posts`, {
+            method: 'GET',
+            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error(data.message);
         }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch group posts.");
-      }
-
-      const postData = await response.json();
-      setPosts(postData);
+        setPosts(data);  // Set the entire fetched data array
     } catch (error) {
-      setError(error.message);
+        setError(error.message);
     }
-  };
+}, [groupId]);
+
 
   useEffect(() => {
     fetchGroupDetails();
     fetchGroupPosts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [groupId, navigate]);
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [posts]);
+  }, [fetchGroupDetails, fetchGroupPosts]);
 
   const handlePostSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch(
-        `https://bitsconnect.onrender.com/api/groups/groups/${groupId}/posts`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify({ text: postText }),
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        setError(errorData.message);
-        return;
-      }
-
-      // Clear the input field after successful post creation
-      setPostText("");
-      // Refetch group posts to update the UI with the new post
-      fetchGroupPosts();
-    } catch (error) {
-      setError("Failed to create post.");
+    if (!postText.trim()) return;
+    if (!currentUser?._id) {
+      setError("You must be logged in to post messages.");
+      return;
     }
+    const post = { text: postText, groupId, userId: currentUser._id };
+    socketRef.current.emit("sendMessage", post, () => {
+      console.log("Message sent!");
+      setPostText("");
+    });
   };
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  
+  useEffect(() => {
+    scrollToBottom();
+  }, [posts]); // Trigger scroll when posts update
+  
 
   if (error) {
     return <div>{error}</div>;
@@ -124,21 +108,25 @@ function GroupPage() {
       </div>
   
       <div className="chat-container">
-        {/* Display group posts with timestamps */}
         <div className="chat-messages">
           <h2>Posts</h2>
           {posts.map((post) => (
-            <div key={post._id} className="message">
-              <p>{post.text}</p>
-              <p>Posted by: {post.createdBy.username}</p>
-              <p>Posted at: {new Date(post.createdAt).toLocaleString()}</p>
+            <div key={post._id} className={`message ${post.createdBy._id === currentUser._id ? 'sent' : 'received'}`}>
+              <div className="message-content">
+                <p className="text">{post.text}</p>
+                <div className="message-meta">
+                  <span className="username">{post.createdBy ? post.createdBy.username : "Unknown"}</span>
+                  <span className="timestamp">{new Date(post.createdAt).toLocaleString()}</span>
+                </div>
+              </div>
             </div>
           ))}
+          <div ref={messagesEndRef} />
         </div>
   
-        {/* Form to create a new post */}
         <form onSubmit={handlePostSubmit} className="post-form">
-          <textarea
+          <input
+            type="text"
             value={postText}
             onChange={(e) => setPostText(e.target.value)}
             placeholder="Write your post here..."
