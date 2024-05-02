@@ -12,16 +12,15 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
     cors: {
-        origin: "https://bits-connect.vercel.app/",  // Ensure this matches the front-end URL
+        origin: "https://master--courageous-dolphin-0a24da.netlify.app/",  // Ensure this matches the front-end URL
         methods: ["GET", "POST"]
     }
 });
 
 const port = process.env.PORT || 3001;
-
 // Middleware
 app.use(cors({
-  origin: 'https://bits-connect.vercel.app/',
+  origin: 'https://master--courageous-dolphin-0a24da.netlify.app/',
   credentials: true
 }));
 app.use(helmet());
