@@ -8,7 +8,7 @@ function GroupList({ currentUser }) {
 
     useEffect(() => {
         const fetchGroups = async () => {
-            const response = await fetch('http://localhost:3001/api/groups/groups', {
+            const response = await fetch('https://bitsconnect.onrender.com/api/groups/groups', {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             });
             if (response.ok) {
@@ -25,7 +25,7 @@ function GroupList({ currentUser }) {
     const joinGroup = async (groupId) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch(`http://localhost:3001/api/groups/groups/${groupId}/join`, {
+            const response = await fetch(`https://bitsconnect.onrender.com/api/groups/groups/${groupId}/join`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`

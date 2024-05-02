@@ -4,7 +4,7 @@ import io from "socket.io-client";
 import "../assets/styles/GroupPage.css";
 import { useAuth } from '../contexts/AuthContext';
 
-const ENDPOINT = "http://localhost:3001";
+const ENDPOINT = "https://bitsconnect.onrender.com";
 
 function GroupPage() {
   const { groupId } = useParams();
