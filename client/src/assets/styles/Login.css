@@ -1,129 +1,108 @@
+/* Global Styles for Auth Forms */
 .signup-wrapper, .login-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(to right, #8e2de2, #4a00e0);
-  }
-  
-  .signup-left, .login-left {
-    flex: 1;
-    color: white;
-    margin-left: 50px;
-  }
-  
-  .signup-right, .login-right {
-    flex: 1;
-    margin-right: 50px;
-  }
-  
-  .signup-form, .login-form {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 400px;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .input-group {
-    margin-bottom: 20px;
-    position: relative;
-  }
-  
-  .input-group input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
-  }
-  
-  .input-group input:focus {
-    border-color: #4a00e0;
-    
-    box-shadow: 0 0 8px rgba(74, 0, 224, 0.6);
-  }
-  
-  .login-form-footer, .signup-form-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-  }
-  
-  .login-button, .signup-button {
-    padding: 10px 0;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .login-button::after, .signup-button::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    transition: left 0.3s ease;
-    border-radius: 5px;
-  }
-  
-  .login-button:hover::after, .signup-button:hover::after {
-    left: 0;
-  }
-  
-  .login-button:hover, .signup-button:hover {
-    background-color: #5a00e0; /* Darker blue background */
-    box-shadow: 0 0 8px rgba(74, 0, 224, 0.6); /* Glow effect */
-  }
-  
-  .show-password-button {
-    background: transparent;
-    border: none;
-    margin-left: 10px;
-    color: #4a00e0;
-    cursor: pointer;
-    transition: color 0.3s ease;
-  }
-  
-  .show-password-button:hover {
-    color: #5a00e0;
-  }
-  
-  h2 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  /* Additional styles for alignment and aesthetics */
-  .login-form-footer label, .signup-form-footer label {
-    display: flex;
-    align-items: center;
-  }
-  
-  /* Style for the 'Remember me' checkbox and forgot password link */
-  .login-form-footer input[type="checkbox"], .signup-form-footer input[type="checkbox"] {
-    margin-right: 5px;
-  }
-  
-  .login-form-footer a, .signup-form-footer a {
-    text-decoration: none;
-    color: #4a00e0;
-    cursor: pointer;
-  }
-  
-  .login-form-footer a:hover, .signup-form-footer a:hover {
-    text-decoration: underline;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to right, #0f0c29, #302b63, #24243e); /* Dark gradient background */
+}
+
+.signup-left, .login-left, .signup-right, .login-right {
+  flex: 1;
+  color: white; /* Ensures text is readable on dark backgrounds */
+  margin: 50px; /* Provides ample spacing */
+}
+
+.signup-form, .login-form {
+  background: #333; /* Dark background for the form */
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.input-group input, .input-group label {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background: #222; /* Slightly lighter shade for input fields */
+  color: #fff; /* White text for contrast */
+  border: 1px solid #555; /* Subtle borders */
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.input-group input:focus, .input-group input:hover {
+  border-color: #007BFF; /* Bright focus color */
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.8); /* Soft glow effect */
+}
+
+.input-group label {
+  position: absolute;
+  left: 10px;
+  top: -10px; /* Adjust based on your specific padding/margin */
+  background: #333; /* Background to match form */
+  padding: 0 5px; /* Padding to ensure background covers text */
+  transition: all 0.3s ease;
+  color: #bbb; /* Lighter text for labels */
+}
+
+.login-button, .signup-button, .show-password-button {
+  padding: 10px 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #007BFF; /* Consistent button color */
+  color: white; /* Text color for readability */
+}
+
+.login-button:hover, .signup-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+  box-shadow: 0 0 8px rgba(0, 56, 179, 0.8); /* Glow effect */
+}
+
+.show-password-button {
+  background: transparent;
+  border: none;
+  color: #007BFF;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.show-password-button:hover {
+  color: #0056b3;
+}
+
+h2 {
+  color: #eee; /* Lighter color for headers */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Additional styles to ensure responsiveness and padding adjustments */
+.signup-form, .login-form {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadows for depth */
+}
+
+/* Input placeholder invisible when focused or having value */
+.input-group input::placeholder {
+  color: transparent;
+}
+
+.input-group input:not(:placeholder-shown) + label,
+.input-group input:focus + label {
+  color: #007BFF; /* Highlight label color when active/focused */
+}
+
+.login-button{
+  margin-bottom: 5px;
+}

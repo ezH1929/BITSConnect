@@ -1,19 +1,25 @@
 /* Global page styles */
 .group-page {
   width: 100%;
-  max-width: 800px; /* Adjusted width for a larger view */
-  margin: 20px auto;
-  font-family: Arial, sans-serif;
+  max-width: 960px;
+  margin: 40px auto;
+  font-family: 'Arial', sans-serif;
+  color: #ffffff;
+  background-color: #121212; /* Dark background for the whole page */
 }
 
-/* Styling the header and 'Go Back' button */
+.message-header {
+  color: #cccccc; /* Light grey color for the sender's name */
+  font-size: 0.85em; /* Smaller font size than the message text */
+  margin-bottom: 5px; /* Space between the sender's name and the message text */
+}
+
 .goBackButton {
-  display: inline-block;
-  background-color: #007bff;
+  background-color: #0d6efd;
   color: white;
-  text-decoration: none;
-  padding: 10px 20px;
+  padding: 10px 15px;
   border-radius: 5px;
+  text-decoration: none;
   font-weight: bold;
   margin-bottom: 20px;
 }
@@ -23,80 +29,110 @@
   margin-bottom: 20px;
 }
 
-.group-name {
-  margin-top: 0;
-  color: #333;
-}
-
-.group-description {
-  color: #666;
-  font-size: 16px;
+.group-name, .group-description {
+  color: #cccccc;
 }
 
 /* Chat container and messages */
 .chat-container {
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 8px;
-  background: #fff;
-}
-
-.chat-messages {
-  height: 500px; /* Increased height for more chat visibility */
+  border: 1px solid #333333;
+  padding: 20px;
+  border-radius: 10px;
+  background: #222222; /* Uniform dark background for the chat container */
+  max-height: 600px;
   overflow-y: auto;
-  margin-bottom: 10px;
+  
 }
 
 .message {
-  background-color: #f7f7f7;
-  border-radius: 15px;
-  padding: 10px;
+  color: #fff; /* White text color for better readability */
+  padding: 5px 10px; /* Reduced vertical padding */
   margin-bottom: 8px;
-  max-width: 70%;
-  word-wrap: break-word;
+  border-radius: 5px;
+  background: #222222; /* Ensure uniform background with the container */
+  max-width: 60%; /* Width limitation for better appearance */
+  display: flex;
+  flex-direction: column;
 }
 
 .sent {
-  background-color: #e9f5ff;
+  margin-left: auto;
+  background: #333333; /* Slightly different background for sent messages */
+  box-shadow: -1px 2px 5px rgba(13, 110, 253, 0.2); /* Subtle shadow for sent messages */
   align-self: flex-end;
-  margin-left: auto; /* Align right */
 }
 
 .received {
-  background-color: #f7f7f7;
-  align-self: flex-start; /* Align left */
+  margin-right: auto;
+  background: #2c2f33; /* Slightly different background for received messages */
+  box-shadow: 1px 2px 5px rgba(44, 47, 51, 0.2); /* Subtle shadow for received messages */
+  align-self: flex-start;
 }
 
-/* Message content and metadata */
+/* Message content and metadata styling */
 .message-content {
-  font-size: 14px;
+  color: #ffffff; /* White text color */
 }
 
 .message-meta {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  color: #888;
+  font-size: 0.75em;
+  color: #777777;
+  text-align: right;
+  margin-top: 5px;
 }
 
 /* Post form styling */
 .post-form {
   display: flex;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #333333;
+  padding-top: 10px;
 }
 
 .post-form input[type="text"], .post-form button {
   border: none;
   padding: 10px;
-  margin: 5px;
+  margin-right: 5px;
 }
 
 .post-form input[type="text"] {
   flex-grow: 1;
+  background-color: #333333;
+  color: #dddddd;
 }
 
 .post-form button {
-  background-color: #007bff;
+  background-color: #0d6efd;
   color: white;
   cursor: pointer;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #e0e0e0;
+  background-color: transparent;
+}
+.text {
+  background-color: transparent;
+  margin: 0;
+  flex-grow: 1; /* Allows text to fill the space */
+  overflow: hidden; /* Prevents text overflow */
+  white-space: nowrap; /* Keeps text in a single line */
+  text-overflow: ellipsis; /* Adds ellipsis if text is too long */
+}
+.message-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h2{
+  background-color: transparent;
+  margin-bottom: 10px;
+}
+.message-header {
+  font-size: 0.85em;
+  color: #f4b300;
+  width: 100%; /* Ensures the header is full width */
 }

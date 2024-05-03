@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import '../assets/styles/Styles.css';
 
-function GroupList({ currentUser }) {
-    const [groups, setGroups] = useState([]);
-    const navigate = useNavigate(); // Instantiate the navigate function
+function GroupList({ groups, joinGroup, currentUser }) {
+    const [activeTab, setActiveTab] = useState('joined');
+    const navigate = useNavigate();
+    const [filteredGroups, setFilteredGroups] = useState([]);
 
     useEffect(() => {
         const fetchGroups = async () => {
@@ -13,7 +14,7 @@ function GroupList({ currentUser }) {
             });
             if (response.ok) {
                 const data = await response.json();
-                setGroups(data.groups);
+                setFilteredGroups(data.groups);
             } else {
                 console.error('Failed to fetch groups');
             }
@@ -22,50 +23,39 @@ function GroupList({ currentUser }) {
         fetchGroups();
     }, []);
 
-    const joinGroup = async (groupId) => {
-        const token = localStorage.getItem('token');
-        try {
-            const response = await fetch(`https://bitsconnect.onrender.com/api/groups/groups/${groupId}/join`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Failed to join group');
-            }
+    useEffect(() => {
+        setFilteredGroups(groups.filter(group => 
+            activeTab === 'joined' ? group.members.includes(currentUser._id) : !group.members.includes(currentUser._id)
+        ));
+    }, [activeTab, groups, currentUser._id]);
 
-            const updatedGroupData = await response.json();
-            setGroups(prevGroups => prevGroups.map(group =>
-                group._id === groupId ? { ...group, members: updatedGroupData.group.members } : group
-            ));
-
-            alert('Successfully joined the group!');
-        } catch (error) {
-            alert(error.message);
-        }
-    };
-
-    const handleGroupClick = groupId => {
-        navigate(`/groups/${groupId}`); // Navigate to the GroupPage
+    const handleTabClick = (tab) => {
+        setActiveTab(tab);
     };
 
     return (
         <div className="group-list-container">
-            <h1>All Groups</h1>
+            <div className="tabs">
+            <button onClick={() => handleTabClick('unjoined')} className={activeTab === 'unjoined' ? 'active' : ''}>
+                    Discover
+                </button>
+                <button onClick={() => handleTabClick('joined')} className={activeTab === 'joined' ? 'active' : ''}>
+                    My Groups
+                </button>
+                
+            </div>
             <ul className="group-list">
-                {groups.map(group => (
-                    <li key={group._id} className="group-card" onClick={() => handleGroupClick(group._id)}>
+                {filteredGroups.map(group => (
+                    <li key={group._id} className="group-card" onClick={() => navigate(`/groups/${group._id}`)}>
                         <div className="group-header">
                             <h2>{group.name}</h2>
                         </div>
                         <div className="group-content">
                             <p>{group.description}</p>
-                            <p className="members">Members: {group.members?.length || 0}</p>
+                            <p className="members">Members: {group.members.length || 0}</p>
                             {!group.members.includes(currentUser._id) && (
                                 <button onClick={(e) => {
-                                    e.stopPropagation(); // Prevent navigation when clicking the button
+                                    e.stopPropagation();
                                     joinGroup(group._id);
                                 }}>Join Group</button>
                             )}

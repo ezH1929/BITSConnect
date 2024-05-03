@@ -1,39 +1,43 @@
-/* Basic resets for margin and padding */
-body, h1, p {
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Main container styling for better spacing and alignment */
-  .main-container {
-    padding: 20px;
-    background-color: #f4f4f4; /* Light grey background for slight contrast */
-  }
-  
-  /* Enhances visual separation and structure */
-  .create-group {
-    margin-bottom: 30px; /* Adds space below the button */
-  }
-  
-  /* Style for buttons to be more visually appealing */
-  button {
-    background-color: #007BFF; /* A nice blue */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-  }
-  
-  /* Loading text style */
-  .loading {
-    text-align: center;
-    font-size: 20px;
-    color: #333;
-  }
-  
+/* Basic resets and typography improvements for dark theme */
+body, h1, h2, p {
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #e0e0e0; /* Light grey text color for readability on dark backgrounds */
+  background-color: #121212; /* Dark background for the entire page */
+}
+
+/* Main container styling for better spacing and alignment */
+.main-container {
+  padding: 20px;
+  background-color: #121212; /* Consistent dark background */
+}
+
+/* Enhances visual separation and structure */
+.create-group {
+  margin-bottom: 30px; /* Adds space below the button */
+  text-align: right;
+}
+
+/* Style for buttons to be more visually appealing */
+button {
+  background-color: #1db954; /* Spotify green for vibrant actions */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background-color: #1ed760; /* A lighter green on hover */
+  transform: scale(1.05);
+}
+
+/* Loading text style */
+.loading {
+  text-align: center;
+  font-size: 20px;
+  color: #ccc;
+}

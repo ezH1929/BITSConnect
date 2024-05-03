@@ -1,59 +1,120 @@
+/* Group List Container */
 .group-list-container {
-    max-width: 1200px; /* Adjust based on your preference */
+    max-width: 1200px;
     margin: auto;
     padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: #1e1e1e; /* Dark background for the container */
+    border-radius: 10px;
 }
 
+/* Responsive grid setup for group cards */
 .group-list {
     list-style: none;
-    padding: 0;
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Creates three columns */
-    grid-gap: 20px; /* Space between cards */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
 }
 
+/* Styling for individual group cards */
 .group-card {
-    background-color: #ffffff;
-    border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 20px; /* Adjust or remove as needed, considering grid-gap */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
+    background-color: #333; /* Continuous dark grey background */
+    color: #fff; /* White text for contrast */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+    padding: 20px; /* Padding inside the card for spacing */
+    position: relative; /* Relative positioning for absolute elements inside */
 }
 
-.group-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+/* Ensures no extra backgrounds or color blocks on text elements */
+.group-card h2, .group-card p, .group-card .members {
+    background-color: transparent; /* Ensures no background color on text */
+    margin: 0; /* Removes default margins */
+    padding: 0; /* Removes default padding */
 }
 
 .group-card h2 {
-    margin-top: 0;
-    color: #333;
+    font-size: 18px;
+    color: #00ced1; /* Bright teal for group names */
+    margin-bottom: 12px; /* Space below the title */
 }
 
+/* Header in group card */
+.group-card h2 {
+    font-size: 18px;
+    margin-bottom: 12px; /* Space below the title */
+}
+
+/* Description and member count in group card */
 .group-card p {
-    margin: 5px 0;
-    color: #666;
+    margin: 4px 0 16px; /* Adjust spacing */
 }
 
+/* Member count style */
 .group-card .members {
-    font-style: italic;
-    color: #888;
+    font-style: normal;
+    opacity: 0.75;
+    margin-bottom: 30px; /* Slightly muted text for less emphasis */
 }
 
+/* Join button inside the card */
 .group-card button {
-    background-color: #0056b3;
-    color: #ffffff;
+    background-color: #FF5722; /* Bright color for the button */
+    color: white;
     border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
+    border-radius: 5px;
+    padding: 10px 20px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.2s;
+    position:absolute; /* Positioned at the bottom right */
+    bottom: 20px;
+    right: 20px;
 }
 
 .group-card button:hover {
-    background-color: #004494;
+    background-color: #E64A19; /* Darker shade on hover */
+}
+
+/* Ensures that the card's hover effect lifts the card visually */
+.group-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+
+  /* Tabs Container */
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #333; /* Subtle line to differentiate tabs from content */
+}
+
+/* Tab Buttons */
+.tabs button {
+    background-color: #282828; /* Dark background for tabs */
+    color: #ddd; /* Light text for readability */
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    font-weight: 500; /* Makes text slightly bolder */
+}
+
+.tabs button:last-child {
+    margin-right: 0; /* Removes margin from the last button */
+}
+
+.tabs button.active {
+    background-color: #4CAF50; /* Vibrant green for the active tab */
+    color: white;
+}
+
+.tabs button:hover {
+    background-color: #357a38; /* A darker shade for hover state */
+    color: white;
 }

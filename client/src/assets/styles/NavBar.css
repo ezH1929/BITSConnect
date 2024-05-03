@@ -1,38 +1,63 @@
+/* Base styles for the navbar */
 .navbar {
-    display: flex;
-    align-items: center;
+    background-color: #333; /* Dark charcoal for the navbar background */
+    color: #ffffff; /* Ensure all text is bright for readability */
+    padding: 10px 30px; /* Adequate padding for visual comfort */
+    display:flex;
     justify-content: space-between;
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5); /* Adds depth with a subtle shadow */
 }
 
+
+/* Styling for the navbar title with enhancements */
 .navbar-title {
-    margin: 0;
-    font-size: 24px;
+    font-size: 26px; /* Slightly larger for emphasis */
+    font-weight: bold;
+    letter-spacing: 1px; /* Adding space between letters for a modern touch */
+    transition: color 0.3s ease; /* Smooth transition for hover effects */
 }
 
+/* Ensure no background highlights are applied inadvertently */
+.navbar-title, .navbar-greeting {
+    background-color: transparent; /* Explicitly setting transparent background */
+}
+
+/* Navbar content styles */
 .navbar-content {
     display: flex;
     align-items: center;
 }
 
+/* Greetings or login message styling */
 .navbar-greeting {
-    margin-right: 20px;
-    font-size: 18px;
-    color: #ddd; /* Slightly lighter color for text */
+    margin-right: 20px; /* Adequate spacing before the button */
+    font-size: 22px; /* Optimal size for secondary text */
+    color: #00d1ca; /* Bright teal for an engaging pop of color */
+    transition: color 0.3s ease; /* Smooth color transition for interactive feel */
 }
 
+/* Interactive hover effect for the navbar title and greeting */
+.navbar-title:hover, .navbar-greeting:hover {
+    color: #4CAF50; /* Change color on hover to indicate interactivity */
+}
+
+
+/* Button styling for actions in the navbar */
 .navbar-button {
-    padding: 8px 16px;
-    background-color: #007BFF;
-    color: white;
+    padding: 10px 18px;
+    background-color: #FF5722; /* Vibrant coral red for action buttons */
+    color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-weight: bold; /* Bold text for button to stand out */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Shadow for 3D effect */
+    transition: background-color 0.2s, transform 0.2s; /* Smooth transition for feedback */
 }
 
+/* Enhancing button hover effect */
 .navbar-button:hover {
-    background-color: #0056b3;
+    background-color: #E64A19; /* Darker shade when hovered */
+    transform: translateY(-2px); /* Slight raise effect */
 }

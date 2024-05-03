@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../assets/styles/Signup.css'
+import '../assets/styles/Login.css'
 
 
 function Signup() {
