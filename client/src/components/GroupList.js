@@ -36,11 +36,12 @@ function GroupList({ groups, joinGroup, currentUser }) {
     return (
         <div className="group-list-container">
             <div className="tabs">
-            <button onClick={() => handleTabClick('unjoined')} className={activeTab === 'unjoined' ? 'active' : ''}>
-                    Discover
-                </button>
+            
                 <button onClick={() => handleTabClick('joined')} className={activeTab === 'joined' ? 'active' : ''}>
                     My Groups
+                </button>
+                <button onClick={() => handleTabClick('unjoined')} className={activeTab === 'unjoined' ? 'active' : ''}>
+                    Discover
                 </button>
                 
             </div>
