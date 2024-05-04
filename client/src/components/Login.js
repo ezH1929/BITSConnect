@@ -13,7 +13,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3001/api/auth/login', {
+      const response = await fetch('https://bitsconnect.onrender.com/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -41,29 +41,7 @@ function Login() {
     }
   };
 
-  const fetchUserDetails = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        throw new Error('Token not found');
-      }
-      const response = await fetch('http://localhost:3001/api/users/profile', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      if (!response.ok) {
-        throw new Error('Failed to fetch user details');
-      }
-      const userData = await response.json();
-      console.log('User details:', userData);
-      setCurrentUser(userData); 
-      // Handle user details as needed
-    } catch (error) {
-      console.error('Error fetching user details:', error.message);
-    }
-  };
+  
 
   const handleSignUp = () => {
     navigate('/signup');  // Navigate to signup page

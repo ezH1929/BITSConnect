@@ -57,10 +57,10 @@ function AdminDashboard() {
 
     useEffect(() => {
         async function fetchData() {
-            const userResponse = await fetch('https://bitsconnect.onrender.com/api/admin/users', {
+            const userResponse = await fetch('http://localhost:3001/api/admin/users', {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             });
-            const groupResponse = await fetch('https://bitsconnect.onrender.com/api/admin/groups', {
+            const groupResponse = await fetch('http://localhost:3001/api/admin/groups', {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             });
             const usersData = await userResponse.json();
@@ -69,12 +69,12 @@ function AdminDashboard() {
             setUsers(usersData);
             setGroups(groupsData);
 
-            // Update chart data with fetched data
-            setChartData({
-                bar: { ...chartData.bar, datasets: [{ ...chartData.bar.datasets[0], data: [usersData.length, groupsData.length] }] },
-                pie: { ...chartData.pie, datasets: [{ ...chartData.pie.datasets[0], data: [usersData.filter(u => u.isActive).length, usersData.filter(u => !u.isActive).length] }] },
-                line: { ...chartData.line, datasets: [{ ...chartData.line.datasets[0], data: [10, 20, 30, 40, 50] }] } // Example data
-            });
+            setChartData(prevChartData => ({
+                ...prevChartData,
+                bar: { ...prevChartData.bar, datasets: [{ ...prevChartData.bar.datasets[0], data: [usersData.length, groupsData.length] }] },
+                pie: { ...prevChartData.pie, datasets: [{ ...prevChartData.pie.datasets[0], data: [usersData.filter(u => u.isActive).length, usersData.filter(u => !u.isActive).length] }] },
+                line: { ...prevChartData.line, datasets: [{ ...prevChartData.line.datasets[0], data: [10, 20, 30, 40, 50] }] } // Example data
+            }));
         }
         fetchData();
     }, []);

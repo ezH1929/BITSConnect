@@ -18,7 +18,7 @@ const handleCreateGroup = async (groupData) => {
     setIsLoading(true);
     const token = localStorage.getItem('token');
     try {
-        const response = await fetch('http://localhost:3001/api/groups/groups', {
+        const response = await fetch('https://bitsconnect.onrender.com/api/groups/groups', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
