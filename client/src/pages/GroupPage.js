@@ -6,7 +6,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useGroupDetails, usePosts } from '../hooks/useGroupHooks'; // Custom hooks (implementation not shown)
 import '../assets/styles/GroupPage.css';
 
-const ENDPOINT = 'https://bitsconnect.onrender.com';
+const ENDPOINT = 'http://localhost:3001';
 
 function GroupPage() {
   const { groupId } = useParams();

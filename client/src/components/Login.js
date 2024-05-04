@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';  // Make sure this path is correct and context is properly exported
+import { useAuth } from '../contexts/AuthContext';  // Ensure this path is correct
 import '../assets/styles/Login.css';
 
 function Login() {
@@ -8,12 +8,12 @@ function Login() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const { setIsLoggedIn } = useAuth();  // Using the useAuth hook to access the context
-  const { setCurrentUser } = useAuth();
+  const { setIsLoggedIn, setCurrentUser } = useAuth();  // Combined destructuring for clarity
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://bitsconnect.onrender.com/api/auth/login', {
+      const response = await fetch('http://localhost:3001/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -22,16 +22,20 @@ function Login() {
       });
       const data = await response.json();
       if (response.ok) {
-        console.log('Login successful:', data);
         localStorage.setItem('token', data.token);  // Storing the token securely in localStorage
         setIsLoggedIn(true);  // Setting login state to true using the context method
-        navigate('/home');  // Redirect to home page on successful login
-        // Fetch user details here after authentication state is set
-        fetchUserDetails(); // Call function to fetch user details
+        setCurrentUser(data.user);  // Save user data in context
+
+        // Redirect based on admin status
+        if (data.isAdmin) {
+          navigate('/admin');  // Redirect to admin dashboard if user is an admin
+        } else {
+          navigate('/home');  // Redirect to home page or user dashboard for regular users
+        }
       } else {
         throw new Error(data.msg || 'An error occurred during login.');
       }
-    } catch (error) {
+    } catch ( error) {
       console.error('Login error:', error.message);
       alert('Login failed: ' + error.message);  // Provide feedback to user on failure
     }
@@ -43,7 +47,7 @@ function Login() {
       if (!token) {
         throw new Error('Token not found');
       }
-      const response = await fetch('https://bitsconnect.onrender.com/api/users/profile', {
+      const response = await fetch('http://localhost:3001/api/users/profile', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'

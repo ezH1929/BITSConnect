@@ -3,6 +3,32 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const router = express.Router();
+const adminAuth = require('../middleware/adminAuth'); // Admin authorization middleware
+
+// POST endpoint to create a new admin
+router.post('/create-admin', async (req, res) => {
+    try {
+        const { username, email, password } = req.body;
+        const newUser = new User({
+            username,
+            email,
+            password, // In production, you should hash the password before storing it
+            isAdmin: true // Set the isAdmin flag to true
+        });
+
+        // Hash password
+        const salt = await bcrypt.genSalt(10);
+        newUser.password = await bcrypt.hash(password, salt);
+
+        // Save user
+    
+        await newUser.save();
+        res.status(201).send({ message: 'Admin user created successfully', user: newUser });
+    } catch (error) {
+        res.status(500).send({ message: 'Failed to create admin user', error: error });
+    }
+});
+
 
 
 // Register route
@@ -56,13 +82,15 @@ router.post('/login', async (req, res) => {
 
         
 
-        jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: 3600 }, (err, token) => {
+        jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET, { expiresIn: 3600 }, (err, token) => {
             if (err) throw err;
             // Exclude password and possibly other sensitive details
             const { password, ...userData } = user.toObject();
             res.json({
                 token,
-                user: userData // Sending back user data except the password
+                user: userData,
+                isAdmin: user.isAdmin
+                 // Sending back user data except the password
             });
         });
         

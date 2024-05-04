@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, useLocation } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
         return;
       }
       try {
-        const response = await fetch('https://bitsconnect.onrender.com/api/users/profile', {
+        const response = await fetch('http://localhost:3001/api/users/profile', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
   const login = useCallback(async (email, password) => {
     setIsLoading(true);
     try {
-      const response = await fetch('https://bitsconnect.onrender.com/api/auth/login', {
+      const response = await fetch('http://localhost:3001/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -104,13 +104,25 @@ export const AuthProvider = ({ children }) => {
 };
 
 export function PrivateRoute({ children }) {
-  const { isLoggedIn, isLoading } = useAuth();
-  if (isLoading) return <div>Loading...</div>;
-  return isLoggedIn ? children : <Navigate to="/login" />;
+  const { currentUser } = useAuth(); // Assuming useAuth provides currentUser
+  const location = useLocation();
+
+  if (!currentUser) {
+      // Redirect to login and preserve the intended location
+      return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return children;
 }
 
+
 export function PublicRoute({ children }) {
-  const { isLoggedIn, isLoading } = useAuth();
-  if (isLoading) return <div>Loading...</div>;
-  return isLoggedIn ? <Navigate to="/home" /> : children;
+  const { currentUser } = useAuth(); // Assuming useAuth provides currentUser
+
+  if (currentUser) {
+      // Redirect authenticated users to a dashboard or home page
+      return <Navigate to="/admin" replace />; // Assuming admin users go straight to '/admin'
+  }
+
+  return children;
 }

@@ -5,6 +5,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Home from './pages/HomePage';
 import GroupPage from './pages/GroupPage'; // Make sure the import path is correct
+import Admin from "./pages/AdminDashboard";
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                 <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
                 <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
                 <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
+                <Route path="/admin" element={<PrivateRoute><Admin /></PrivateRoute>} />
                 <Route path="/groups/:groupId" element={<PrivateRoute><GroupPage /></PrivateRoute>} /> {/* New route for group details */}
             </Routes>
         </AuthProvider>

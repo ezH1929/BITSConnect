@@ -1,0 +1,112 @@
+/* Base settings for the modal overlay */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(10, 10, 10, 0.85); /* Darker, richer background */
+    z-index: 1000;
+    overflow: hidden;
+    animation: fadeInModal 0.5s ease-out;
+}
+
+/* Keyframes for fade-in animation to give a smooth entrance */
+@keyframes fadeInModal {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Styling for the modal content box */
+.modal-content {
+    background: #282c34; /* Subtle dark theme */
+    color: #bbc2cf; /* Soft light grey for text */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    width: 80%;
+    max-width: 600px;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    border: 1px solid #444; /* Subtle border */
+    animation: scaleUp 0.3s ease-out forwards;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center-align the content within */
+}
+
+/* Scale animation for modal content */
+@keyframes scaleUp {
+    0% { transform: scale(0.8); }
+    100% { transform: scale(1); }
+}
+
+/* Styling for list items within the modal */
+li {
+    display: flex;
+    justify-content: space-between; /* Aligns content to the left and buttons to the right */
+    align-items: center; /* Keeps items vertically aligned */
+    width: 100%; /* Ensures full width utilization within modal content */
+    margin-bottom: 15px; /* Adds spacing between list items */
+}
+
+/* Container for item names and buttons to ensure proper alignment */
+.item-info {
+    flex-grow: 1; /* Allows the name section to take up the available space */
+    text-align: left; /* Aligns text to the left */
+}
+
+.button-container {
+    display: flex; /* Ensures buttons are aligned in a row */
+}
+
+/* Styling for buttons within the modal for a uniform look */
+button {
+    background-color: #61afef; /* Vibrant button color */
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* Hover effect for buttons */
+button:hover {
+    background-color: #528bde; /* Slightly darker on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Focus and active styles */
+button:focus, button:active {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(97, 175, 239, 0.5);
+}
+
+/* Specific styling for the close button */
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    color: #abb2bf;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Responsive media queries for smaller devices */
+@media (max-width: 600px) {
+    .modal-content {
+        padding: 20px;
+        max-width: 90%;
+        max-height: 90vh;
+    }
+}

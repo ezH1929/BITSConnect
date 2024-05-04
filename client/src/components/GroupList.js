@@ -9,7 +9,7 @@ function GroupList({ groups, joinGroup, currentUser }) {
 
     useEffect(() => {
         const fetchGroups = async () => {
-            const response = await fetch('https://bitsconnect.onrender.com/api/groups/groups', {
+            const response = await fetch('http://localhost:3001/api/groups/groups', {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             });
             if (response.ok) {

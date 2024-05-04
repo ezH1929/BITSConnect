@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-const ENDPOINT = 'https://bitsconnect.onrender.com';
+const ENDPOINT = 'http://localhost:3001';
 
 export const useGroupDetails = (groupId) => {
     const [group, setGroup] = useState(null);

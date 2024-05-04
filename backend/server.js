@@ -40,6 +40,8 @@ mongoose.connect(process.env.ATLAS_URI).then(() => console.log("MongoDB database
 const authRoutes = require('./routes/auth');
 const groupRoutes = require('./routes/group')(io); // Pass io instance to group routes
 const userRoutes = require('./routes/user');
+const adminRoutes = require('./routes/admin'); // Adjust the path as per your project structure
+app.use('/api/admin', adminRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/groups', groupRoutes);
 app.use('/api/users', userRoutes);
